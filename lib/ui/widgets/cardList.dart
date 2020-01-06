@@ -9,7 +9,7 @@ class CardList extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(
           context,
-          '/details',
+          '/detail',
         );
       },
       child: Column(
