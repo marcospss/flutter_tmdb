@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class CardPoster extends StatelessWidget {
-  final String _title;
-  final String _poster;
-  final double containerWidth = 120.0;
-  CardPoster(this._title, this._poster);
+  final String title;
+  final String poster;
+  final double containerWidth;
+  final String sizeImage;
+
+  CardPoster(this.title, this.poster, { this.containerWidth = 120.0, this.sizeImage = 'w154' });
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,7 +21,7 @@ class CardPoster extends StatelessWidget {
             width: containerWidth,
             child: FadeInImage.memoryNetwork(
               placeholder: kTransparentImage,
-              image: 'https://image.tmdb.org/t/p/w154$_poster',
+              image: 'https://image.tmdb.org/t/p/$sizeImage$poster',
             ),
           ),
         ),
@@ -27,7 +30,7 @@ class CardPoster extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(top: 10.0),
             child: Text(
-              _title,
+              title,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
               style: TextStyle(

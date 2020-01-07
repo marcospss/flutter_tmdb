@@ -4,15 +4,16 @@ import 'package:intl/intl.dart';
 class CardBackdrop extends StatelessWidget {
   final String title;
   final String backdrop;
-  final String releaseDate; 
+  final String releaseDate;
+  final String sizeImage;
   // https://pub.dev/documentation/intl/latest/intl/DateFormat-class.html
 
-  CardBackdrop(this.title, this.backdrop, this.releaseDate);
+  CardBackdrop(this.title, this.backdrop, this.releaseDate, { this.sizeImage = 'w300' });
 
   @override
   Widget build(BuildContext context) {
-    final parseReleaseDate = new DateFormat('yyyy-MM-dd').parse(releaseDate);
-    final formatReleaseDate = new DateFormat.yMMMMd().format(parseReleaseDate);
+    final parseReleaseDate = DateFormat('yyyy-MM-dd').parse(releaseDate);
+    final formatReleaseDate = DateFormat.yMMMMd().format(parseReleaseDate);
     final size = MediaQuery.of(context).size.width;
     return Container(
       width: size,
@@ -24,8 +25,9 @@ class CardBackdrop extends StatelessWidget {
           image: DecorationImage(
             fit: BoxFit.fill,
             image: (backdrop != null)
-                ? NetworkImage('https://image.tmdb.org/t/p/w300$backdrop')
-                : AssetImage('assets/images/no-image-available.jpg'),
+                ? NetworkImage(
+                    'https://image.tmdb.org/t/p/$sizeImage$backdrop')
+                : AssetImage('images/no-image-available.jpg'),
           )),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(

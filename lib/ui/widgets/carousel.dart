@@ -5,15 +5,15 @@ import 'package:the_movie_database/ui/widgets/cardPoster.dart';
 import 'package:the_movie_database/utils/screenArguments.dart';
 
 class Carousel extends StatelessWidget {
-  final _imageWidth;
-  final _typeCard;
+  final imageWidth;
+  final typeCard;
 
-  Carousel(this._typeCard, this._imageWidth);
+  Carousel(this.typeCard, this.imageWidth);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemExtent: _imageWidth,
+      itemExtent: imageWidth,
       scrollDirection: Axis.horizontal,
       itemBuilder: (BuildContext context, int index) => GestureDetector(
         onTap: () {
@@ -26,7 +26,7 @@ class Carousel extends StatelessWidget {
             ),
           );
         },
-        child: (_typeCard == 'backdrop')
+        child: (typeCard == 'backdrop')
             ? CardBackdrop(
                 'Star Wars: The Rise of Skywalker',
                 '/jOzrELAzFxtMx2I4uDGHOotdfsS.jpg',

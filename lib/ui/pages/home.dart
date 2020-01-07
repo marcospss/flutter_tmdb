@@ -102,7 +102,7 @@ class _HomeState extends State<Home> {
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.fill,
-          image: AssetImage('assets/images/cover.jpg')
+          image: AssetImage('images/cover.jpg')
         )
       ),
       child: Stack(children: <Widget>[
