@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:the_movie_database/ui/pages/home.dart';
-import 'package:the_movie_database/ui/pages/detail.dart';
-import 'package:the_movie_database/ui/pages/search.dart';
-import 'package:the_movie_database/ui/pages/discover.dart';
-import 'package:the_movie_database/ui/pages/favorite.dart';
+import 'package:the_movie_database/ui/screens/home.dart';
+import 'package:the_movie_database/ui/screens/detail.dart';
+import 'package:the_movie_database/ui/screens/search.dart';
+import 'package:the_movie_database/ui/screens/discover.dart';
+import 'package:the_movie_database/ui/screens/favorite.dart';
 
 import 'package:the_movie_database/utils/screenArguments.dart';
 
