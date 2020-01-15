@@ -7,7 +7,7 @@ import 'package:the_movie_database/settings/api.dart';
 
 class CommonService {
   Client client = Client();
-  final _baseUrl = '$baseUrl';
+  final _baseUrl = baseUrl;
   final _apiKey = apikey;
 
   /*

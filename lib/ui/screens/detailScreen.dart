@@ -152,7 +152,6 @@ class _DetailState extends State<Detail> {
               stream: bloc.details,
               builder: (context, AsyncSnapshot<DetailModel> snapshot) {
                 if (snapshot.hasData) {
-                  print('_buildStack $snapshot');
                 } else if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 }

@@ -41,5 +41,5 @@ class MoviesBloc {
     _upcomingFetcher.close();
   }
 }
-
-final bloc = MoviesBloc();
+// TODO: Verificar como manter a instância -> ERRO: navegação destroi a página.
+// final bloc = MoviesBloc();

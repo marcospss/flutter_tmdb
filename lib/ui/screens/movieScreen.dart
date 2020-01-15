@@ -16,6 +16,7 @@ class _MovieState extends State<Movie> {
   final _sizeSubTitle = 20.0;
   final _widthContainerPoster = 140.0;
   final _posterHeight = 240.0;
+  final bloc = MoviesBloc();
 
   @override
   void initState() {
@@ -27,11 +28,11 @@ class _MovieState extends State<Movie> {
   }
 
   // TODO: Corrigir o erro de carregamento quando voltar para página
-  // @override
-  // void dispose() {
-  //   bloc.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

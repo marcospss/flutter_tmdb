@@ -4,10 +4,6 @@ import 'package:the_movie_database/models/itemModel.dart';
 import 'package:the_movie_database/models/detailModel.dart';
 
 class DetailsBloc {
-  final String mediaType;
-  final String mediaId;
-
-  DetailsBloc({this.mediaType, this.mediaId});
 
   final _repository = DetailRepository();
   final _detailFetcher = PublishSubject<DetailModel>();
@@ -20,17 +16,17 @@ class DetailsBloc {
   Observable<ItemModel> get topRated => _similarFetcher.stream;
 
   fetchDetail({ String mediaType, String mediaId }) async {
-    DetailModel detailModel = await _repository.fetchDetail(mediaType: this.mediaType, mediaId: this.mediaId);
+    DetailModel detailModel = await _repository.fetchDetail(mediaType: mediaType, mediaId: mediaId);
     _detailFetcher.sink.add(detailModel);
   }
 
   fetchRecommendations({ String mediaType, String mediaId }) async {
-    ItemModel itemModel = await _repository.fetchRecommendations(mediaType: this.mediaType, mediaId: this.mediaId);
+    ItemModel itemModel = await _repository.fetchRecommendations(mediaType: mediaType, mediaId: mediaId);
     _recommendationsFetcher.sink.add(itemModel);
   }
   
   fetchSimilar({ String mediaType, String mediaId }) async {
-    ItemModel itemModel = await _repository.fetchSimilar(mediaType: this.mediaType, mediaId: this.mediaId);
+    ItemModel itemModel = await _repository.fetchSimilar(mediaType: mediaType, mediaId: mediaId);
     _similarFetcher.sink.add(itemModel);
   }
 
