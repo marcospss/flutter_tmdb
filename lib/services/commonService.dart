@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' show Client, Response;
 import 'package:the_movie_database/models/itemModel.dart';
+import 'package:the_movie_database/models/detailModel.dart';
 import 'package:the_movie_database/settings/api.dart';
 
-class Common {
+class CommonService {
   Client client = Client();
   final _baseUrl = '$baseUrl';
   final _apiKey = apikey;
@@ -14,7 +15,7 @@ class Common {
   * Get the cast and crew for a movie.
   * Get the credits (cast and crew) that have been added to a TV show.
   */
-  Future<ItemModel> fetchCredits(String mediaType, String mediaId) async {
+  Future<ItemModel> fetchCredits({String mediaType, String mediaId}) async {
     Response response;
     response = await client
         .get("$_baseUrl/$mediaType/$mediaId/credits?api_key=$_apiKey");
@@ -23,7 +24,7 @@ class Common {
       return ItemModel.fromJson(json.decode(response.body));
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load post');
+      throw Exception('Failed to load fetchCredits');
     }
   }
 
@@ -33,7 +34,7 @@ class Common {
   * @param properties
   */
   Future<ItemModel> fetchRecommendations(
-      String mediaType, String mediaId) async {
+      {String mediaType, String mediaId}) async {
     Response response;
     response = await client
         .get("$_baseUrl/$mediaType/$mediaId/recommendations?api_key=$_apiKey");
@@ -42,7 +43,7 @@ class Common {
       return ItemModel.fromJson(json.decode(response.body));
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load post');
+      throw Exception('Failed to load fetchRecommendations');
     }
   }
 
@@ -51,7 +52,7 @@ class Common {
   * Get a list of similar movies. This is not the same as the "Recommendation" system you see on the website.
   * Get a list of similar TV shows. These items are assembled by looking at keywords and genres.
   */
-  Future<ItemModel> fetchSimilar(String mediaType, String mediaId) async {
+  Future<ItemModel> fetchSimilar({String mediaType, String mediaId}) async {
     Response response;
     response = await client
         .get("$_baseUrl/$mediaType/$mediaId/similar?api_key=$_apiKey");
@@ -60,7 +61,7 @@ class Common {
       return ItemModel.fromJson(json.decode(response.body));
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load post');
+      throw Exception('Failed to load fetchSimilar');
     }
   }
 
@@ -77,7 +78,7 @@ class Common {
       return ItemModel.fromJson(json.decode(response.body));
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load post');
+      throw Exception('Failed to load fetchPopular');
     }
   }
 
@@ -94,7 +95,7 @@ class Common {
       return ItemModel.fromJson(json.decode(response.body));
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load post');
+      throw Exception('Failed to load fetchTopRated');
     }
   }
 
@@ -102,16 +103,16 @@ class Common {
   * Get Details
   * Get the primary information about a movies/tv shows.
   */
-  Future<ItemModel> fetchDetails(String mediaType, String mediaId) async {
+  Future<DetailModel> fetchDetail({String mediaType, String mediaId}) async {
     Response response;
     response =
         await client.get("$_baseUrl/$mediaType/$mediaId?api_key=$_apiKey");
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON
-      return ItemModel.fromJson(json.decode(response.body));
+      return DetailModel.fromJson(json.decode(response.body));
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load post');
+      throw Exception('Failed to load fetchDetail');
     }
   }
 
@@ -128,7 +129,7 @@ class Common {
       return ItemModel.fromJson(json.decode(response.body));
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load post');
+      throw Exception('Failed to load fetchGenres');
     }
   }
 }

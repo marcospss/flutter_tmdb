@@ -4,7 +4,7 @@ import 'package:http/http.dart' show Client, Response;
 import 'package:the_movie_database/models/itemModel.dart';
 import 'package:the_movie_database/settings/api.dart';
 
-class Movie {
+class MovieService {
   Client _client = Client();
   final _baseUrl = '$baseUrl/movie';
   final _apiKey = apikey;
@@ -22,7 +22,7 @@ class Movie {
       return ItemModel.fromJson(json.decode(response.body));
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load post');
+      throw Exception('Failed to load fetchNowPlaying');
     }
   }
 
@@ -39,7 +39,7 @@ class Movie {
       return ItemModel.fromJson(json.decode(response.body));
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load post');
+      throw Exception('Failed to load fetchUpcoming');
     }
   }
 

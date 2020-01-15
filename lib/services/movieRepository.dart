@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'package:the_movie_database/services/movie.dart';
-import 'package:the_movie_database/services/common.dart';
+import 'package:the_movie_database/services/movieService.dart';
+import 'package:the_movie_database/services/commonService.dart';
 import 'package:the_movie_database/models/itemModel.dart';
 
 class MovieRepository {
-  final _movies = Movie();
-  final _common = Common();
+  final _movies = MovieService();
+  final _common = CommonService();
 
   Future<ItemModel> fetchNowPlaying() => _movies.fetchNowPlaying();
   Future<ItemModel> fetchUpcoming() => _movies.fetchUpcoming();

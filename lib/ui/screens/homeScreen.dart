@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie_database/ui/screens/movie.dart';
-import 'package:the_movie_database/ui/screens/tv.dart';
-import 'package:the_movie_database/ui/screens/search.dart';
+import 'package:the_movie_database/ui/screens/movieScreen.dart';
+import 'package:the_movie_database/ui/screens/tvScreen.dart';
+import 'package:the_movie_database/ui/screens/searchScreen.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);

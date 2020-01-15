@@ -1,11 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class Detail extends StatelessWidget {
-  final String _mediaType;
-  final String _mediaId;
+import 'package:the_movie_database/blocs/detailBloc.dart';
+import 'package:the_movie_database/models/itemModel.dart';
+import 'package:the_movie_database/models/detailModel.dart';
 
-  Detail(this._mediaType, this._mediaId);
+class Detail extends StatefulWidget {
+  final String mediaType;
+  final String mediaId;
+
+  Detail({this.mediaType, this.mediaId});
+
+  @override
+  _DetailState createState() =>
+      _DetailState(mediaType: this.mediaType, mediaId: this.mediaId);
+}
+
+class _DetailState extends State<Detail> {
+  final String mediaType;
+  final String mediaId;
+
+  _DetailState({this.mediaType, this.mediaId});
+
+  @override
+  void initState() {
+    super.initState();
+    bloc.fetchDetail(mediaType: this.mediaType, mediaId: this.mediaId);
+    bloc.fetchRecommendations(mediaType: this.mediaType, mediaId: this.mediaId);
+    bloc.fetchSimilar(mediaType: this.mediaType, mediaId: this.mediaId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +90,7 @@ class Detail extends StatelessWidget {
                       height: 60,
                     ),
                     _setTitleSection(
-                      text: 'Recommendations',
+                      text: 'Similar',
                       size: sizeTitleSubSection,
                     ),
                     Container(
@@ -119,11 +142,22 @@ class Detail extends StatelessWidget {
             padding: EdgeInsets.only(
               bottom: 120.0,
             ),
-            child: FadeInImage.memoryNetwork(
-              placeholder: kTransparentImage,
-              fit: BoxFit.fitWidth,
-              image:
-                  'https://image.tmdb.org/t/p/w780/a6cDxdwaQIFjSkXf7uskg78ZyTq.jpg',
+            // child: FadeInImage.memoryNetwork(
+            //   placeholder: kTransparentImage,
+            //   fit: BoxFit.fitWidth,
+            //   image:
+            //       'https://image.tmdb.org/t/p/w780/a6cDxdwaQIFjSkXf7uskg78ZyTq.jpg',
+            // ),
+            child: StreamBuilder(
+              stream: bloc.details,
+              builder: (context, AsyncSnapshot<DetailModel> snapshot) {
+                if (snapshot.hasData) {
+                  print('_buildStack $snapshot');
+                } else if (snapshot.hasError) {
+                  return Text(snapshot.error.toString());
+                }
+                return Center(child: CircularProgressIndicator());
+              },
             ),
           ),
           Positioned(
