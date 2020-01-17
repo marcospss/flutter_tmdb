@@ -46,7 +46,7 @@ class _DetailState extends State<Detail> {
     final _widthContainerPoster = 140.0;
     final _posterHeight = 240.0;
     final _sizeSubTitle = 20.0;
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Terminator: Dark Fate Terminator Terminator'),
@@ -54,105 +54,121 @@ class _DetailState extends State<Detail> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            child: StreamBuilder(
-              stream: bloc.details,
-              builder: (context, AsyncSnapshot<DetailModel> snapshot) {
-                if (snapshot.hasData) {
-                  final result = snapshot.data;
-                  return Column(
-                    children: <Widget>[
-                      _buildStack(_fullSize, result),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20.0,
+          child: Column(
+            children: <Widget>[
+              StreamBuilder(
+                stream: bloc.details,
+                builder: (context, AsyncSnapshot<DetailModel> snapshot) {
+                  if (snapshot.hasData) {
+                    final result = snapshot.data;
+                    return Column(
+                      children: <Widget>[
+                        _buildStack(_fullSize, result),
+                        SizedBox(
+                          height: 20.0,
                         ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20.0),
+                        Container(
+                          width: double.infinity,
+                          margin: EdgeInsets.zero,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.0),
+                              topRight: Radius.circular(20.0),
+                            ),
                           ),
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            _overview(result.overview),
-                            Divider(
-                              color: Colors.black,
-                              height: 60,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 20.0,
                             ),
-                            _setTitleSection(
-                              text: 'Recommendations',
-                              size: _sizeSubTitle,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                bottom: 15.0,
-                                left: 5.0,
-                              ),
-                              height: _posterHeight,
-                              child: StreamBuilder(
-                                stream: bloc.recommendations,
-                                builder: (context,
-                                    AsyncSnapshot<ItemModel> snapshot) {
-                                  if (snapshot.hasData) {
-                                    return _buildItemList(
-                                      _widthContainerPoster,
-                                      snapshot,
-                                    );
-                                  } else if (snapshot.hasError) {
-                                    return Text(snapshot.error.toString());
-                                  }
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                },
-                              ),
-                            ),
-                            Divider(
-                              color: Colors.black,
-                              height: 60,
-                            ),
-                            _setTitleSection(
-                              text: 'Similar',
-                              size: _sizeSubTitle,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                bottom: 15.0,
-                                left: 5.0,
-                              ),
-                              height: _posterHeight,
-                              child: StreamBuilder(
-                                stream: bloc.similar,
-                                builder: (context,
-                                    AsyncSnapshot<ItemModel> snapshot) {
-                                  if (snapshot.hasData) {
-                                    return _buildItemList(
-                                      _widthContainerPoster,
-                                      snapshot,
-                                    );
-                                  } else if (snapshot.hasError) {
-                                    return Text(snapshot.error.toString());
-                                  }
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
+                            child: _overview(result.overview),
+                          ),
+                        )
+                      ],
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text(snapshot.error.toString());
+                  }
+                  return Center(child: CircularProgressIndicator());
+                },
+              ),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.zero,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.0),
+                    bottomRight: Radius.circular(20.0),
+                  ),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Divider(
+                      color: Colors.black,
+                      height: 60,
+                    ),
+                    _setTitleSection(
+                      text: 'Recommendations',
+                      size: _sizeSubTitle,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        bottom: 15.0,
+                        left: 5.0,
                       ),
-                    ],
-                  );
-                } else if (snapshot.hasError) {
-                  return Text(snapshot.error.toString());
-                }
-                return Center(child: CircularProgressIndicator());
-              },
-            ),
+                      height: _posterHeight,
+                      child: StreamBuilder(
+                        stream: bloc.recommendations,
+                        builder: (context, AsyncSnapshot<ItemModel> snapshot) {
+                          if (snapshot.hasData) {
+                            return _buildItemList(
+                              _widthContainerPoster,
+                              snapshot,
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text(snapshot.error.toString());
+                          }
+                          return Center(child: CircularProgressIndicator());
+                        },
+                      ),
+                    ),
+                    Divider(
+                      color: Colors.black,
+                      height: 60,
+                    ),
+                    _setTitleSection(
+                      text: 'Similar',
+                      size: _sizeSubTitle,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        bottom: 15.0,
+                        left: 5.0,
+                      ),
+                      height: _posterHeight,
+                      child: StreamBuilder(
+                        stream: bloc.similar,
+                        builder: (context, AsyncSnapshot<ItemModel> snapshot) {
+                          if (snapshot.hasData) {
+                            return _buildItemList(
+                              _widthContainerPoster,
+                              snapshot,
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text(snapshot.error.toString());
+                          }
+                          return Center(child: CircularProgressIndicator());
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -192,6 +208,8 @@ class _DetailState extends State<Detail> {
             bottom: 0.0,
             left: 20.0,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
                   width: 120.0,
@@ -210,8 +228,6 @@ class _DetailState extends State<Detail> {
                   child: Padding(
                     padding: EdgeInsets.all(20.0),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
                           mediaData.title,
@@ -277,7 +293,7 @@ class _DetailState extends State<Detail> {
             context,
             '/detail',
             arguments: ScreenArguments(
-            this.mediaType,
+              this.mediaType,
               results[index].id.toString(),
             ),
           );
