@@ -10,10 +10,9 @@ class DetailsBloc {
   final _recommendationsFetcher = PublishSubject<ItemModel>();
   final _similarFetcher = PublishSubject<ItemModel>();
 
-
   Observable<DetailModel> get details => _detailFetcher.stream;
-  Observable<ItemModel> get popular => _recommendationsFetcher.stream;
-  Observable<ItemModel> get topRated => _similarFetcher.stream;
+  Observable<ItemModel> get recommendations => _recommendationsFetcher.stream;
+  Observable<ItemModel> get similar => _similarFetcher.stream;
 
   fetchDetail({ String mediaType, String mediaId }) async {
     DetailModel detailModel = await _repository.fetchDetail(mediaType: mediaType, mediaId: mediaId);
@@ -37,4 +36,4 @@ class DetailsBloc {
   }
 }
 
-final bloc = DetailsBloc();
+// final bloc = DetailsBloc();

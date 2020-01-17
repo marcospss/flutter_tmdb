@@ -6,8 +6,9 @@ class CardPoster extends StatelessWidget {
   final String poster;
   final double containerWidth;
   final String sizeImage;
+  final Color colorTitle;
 
-  CardPoster(this.title, this.poster, { this.containerWidth = 120.0, this.sizeImage = 'w154' });
+  CardPoster(this.title, this.poster, { this.containerWidth = 120.0, this.sizeImage = 'w154', this.colorTitle = Colors.white });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class CardPoster extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
               style: TextStyle(
-                color: Colors.white,
+                color: colorTitle,
                 fontSize: 16.0,
               ),
             ),
