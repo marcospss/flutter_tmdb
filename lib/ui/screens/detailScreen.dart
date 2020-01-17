@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
 
+import 'package:the_movie_database/ui/widgets/detailHeader.dart';
 import 'package:the_movie_database/blocs/detailBloc.dart';
 import 'package:the_movie_database/models/itemModel.dart';
 import 'package:the_movie_database/models/detailModel.dart';
@@ -42,7 +42,6 @@ class _DetailState extends State<Detail> {
 
   @override
   Widget build(BuildContext context) {
-    final _fullSize = MediaQuery.of(context).size.width;
     final _widthContainerPoster = 140.0;
     final _posterHeight = 240.0;
     final _sizeSubTitle = 20.0;
@@ -63,7 +62,7 @@ class _DetailState extends State<Detail> {
                     final result = snapshot.data;
                     return Column(
                       children: <Widget>[
-                        _buildStack(_fullSize, result),
+                        DetailHeader(mediaData: result),
                         SizedBox(
                           height: 20.0,
                         ),
@@ -190,75 +189,6 @@ class _DetailState extends State<Detail> {
         ),
       );
 
-  Widget _buildStack(double _fullSize, mediaData) => Stack(
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            height: 352.0,
-            padding: EdgeInsets.only(
-              bottom: 120.0,
-            ),
-            child: FadeInImage.memoryNetwork(
-              placeholder: kTransparentImage,
-              fit: BoxFit.fitWidth,
-              image: 'https://image.tmdb.org/t/p/w780${mediaData.backdropPath}',
-            ),
-          ),
-          Positioned(
-            bottom: 0.0,
-            left: 20.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  width: 120.0,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: FadeInImage.memoryNetwork(
-                      placeholder: kTransparentImage,
-                      fit: BoxFit.fitWidth,
-                      image:
-                          'https://image.tmdb.org/t/p/w154${mediaData.posterPath}',
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 60.0),
-                  child: Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          mediaData.title,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                        // https://github.com/ibhavikmakwana/Fluttery-Filmy - Solução titulo
-                        Text(
-                          mediaData.genres.map((f) => f.name).join(' | '),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      );
 
   Widget _setTitleSection({
     String text,
