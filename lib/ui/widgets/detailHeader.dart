@@ -74,8 +74,9 @@ class DetailHeader extends StatelessWidget {
                   child: FadeInImage.memoryNetwork(
                     placeholder: kTransparentImage,
                     fit: BoxFit.fitWidth,
-                    image:
-                        'https://image.tmdb.org/t/p/w154${mediaData.posterPath}',
+                    image: (mediaData.posterPath != null)
+                        ? 'https://image.tmdb.org/t/p/w154${mediaData.posterPath}'
+                        : AssetImage('images/no-image-available.jpg'),
                   ),
                 ),
               ),

@@ -11,7 +11,7 @@ class RatingInformation extends StatelessWidget {
     var stars = <Widget>[];
     var rate = mediaData.voteAverage / 2;
     for (var i = 0; i < 5; ++i) {
-      var color = i <= rate ? Colors.black26 : Colors.blueGrey;
+      var color = i <= rate ? Colors.blueGrey : Colors.black26;
       var star = Icon(
         Icons.star,
         color: color,
@@ -43,7 +43,7 @@ class RatingInformation extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        _buildRatingBar(theme),
+        _buildRatingBar(),
       ],
     );
 

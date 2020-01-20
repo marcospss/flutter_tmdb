@@ -66,7 +66,7 @@ class _Result {
     _backdropPath = result['backdrop_path'];
     _adult = result['adult'];
     _overview = result['overview'];
-    _releaseDate = !(result['release_date'].isEmpty) ? result['release_date'] : result['first_air_date'];
+    _releaseDate = (result['release_date'] != null) ? result['release_date'] : result['first_air_date'];
   }
 
   String get releaseDate => _releaseDate;

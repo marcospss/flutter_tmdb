@@ -18,7 +18,7 @@ class CommonService {
   Future<ItemModel> fetchCredits({String mediaType, String mediaId}) async {
     Response response;
     response = await client
-        .get("$_baseUrl/$mediaType/$mediaId/credits?api_key=$_apiKey");
+        .get('$_baseUrl/$mediaType/$mediaId/credits?api_key=$_apiKey');
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON
       return ItemModel.fromJson(json.decode(response.body));
@@ -37,7 +37,7 @@ class CommonService {
       {String mediaType, String mediaId}) async {
     Response response;
     response = await client
-        .get("$_baseUrl/$mediaType/$mediaId/recommendations?api_key=$_apiKey");
+        .get('$_baseUrl/$mediaType/$mediaId/recommendations?api_key=$_apiKey');
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON
       return ItemModel.fromJson(json.decode(response.body));
@@ -55,7 +55,7 @@ class CommonService {
   Future<ItemModel> fetchSimilar({String mediaType, String mediaId}) async {
     Response response;
     response = await client
-        .get("$_baseUrl/$mediaType/$mediaId/similar?api_key=$_apiKey");
+        .get('$_baseUrl/$mediaType/$mediaId/similar?api_key=$_apiKey');
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON
       return ItemModel.fromJson(json.decode(response.body));
@@ -66,13 +66,30 @@ class CommonService {
   }
 
   /*
+ * Discover movies by different types of data like average rating, number of votes, genres and certifications. You can get a valid list of certifications from the  method.
+    * Discover TV shows by different types of data like average rating, number of votes, genres, the network they aired on and air dates.
+  */
+  Future<ItemModel> fetchDiscover(String mediaType) async {
+    Response response;
+    response =
+        await client.get('$_baseUrl/discover/$mediaType?api_key=$_apiKey');
+    if (response.statusCode == 200) {
+      // If the call to the server was successful, parse the JSON
+      return ItemModel.fromJson(json.decode(response.body));
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load fetchDiscover');
+    }
+  }
+
+  /*
   * Get Popular
   * Get a list of the current popular movies/tv shows on TMDb. This list updates daily.
   */
   Future<ItemModel> fetchPopular(String mediaType) async {
     Response response;
     response =
-        await client.get("$_baseUrl/$mediaType/popular?api_key=$_apiKey");
+        await client.get('$_baseUrl/$mediaType/popular?api_key=$_apiKey');
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON
       return ItemModel.fromJson(json.decode(response.body));
@@ -89,7 +106,7 @@ class CommonService {
   Future<ItemModel> fetchTopRated(String mediaType) async {
     Response response;
     response =
-        await client.get("$_baseUrl/$mediaType/top_rated?api_key=$_apiKey");
+        await client.get('$_baseUrl/$mediaType/top_rated?api_key=$_apiKey');
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON
       return ItemModel.fromJson(json.decode(response.body));
@@ -106,7 +123,7 @@ class CommonService {
   Future<DetailModel> fetchDetail({String mediaType, String mediaId}) async {
     Response response;
     response =
-        await client.get("$_baseUrl/$mediaType/$mediaId?api_key=$_apiKey");
+        await client.get('$_baseUrl/$mediaType/$mediaId?api_key=$_apiKey');
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON
       return DetailModel.fromJson(json.decode(response.body));
@@ -123,7 +140,7 @@ class CommonService {
   Future<ItemModel> fetchGenres(String mediaType) async {
     Response response;
     response =
-        await client.get("$_baseUrl/genre/$mediaType/list?api_key=$_apiKey");
+        await client.get('$_baseUrl/genre/$mediaType/list?api_key=$_apiKey');
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON
       return ItemModel.fromJson(json.decode(response.body));

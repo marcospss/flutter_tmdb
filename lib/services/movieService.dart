@@ -33,7 +33,7 @@ class MovieService {
   */
   Future<ItemModel> fetchUpcoming() async {
     Response response;
-    response = await _client.get("$_baseUrl/upcoming?api_key=$_apiKey");
+    response = await _client.get('$_baseUrl/upcoming?api_key=$_apiKey');
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON
       return ItemModel.fromJson(json.decode(response.body));
