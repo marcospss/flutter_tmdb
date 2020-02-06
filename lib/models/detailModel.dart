@@ -177,7 +177,10 @@ class DetailModel {
       json['seasons'].forEach((v) {
         seasons.add(new Seasons.fromJson(v));
       });
+    } else {
+      seasons = null;
     }
+    
   }
 
   Map<String, dynamic> toJson() {

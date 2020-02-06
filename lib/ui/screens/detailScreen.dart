@@ -6,6 +6,7 @@ import 'package:the_movie_database/models/itemModel.dart';
 import 'package:the_movie_database/models/detailModel.dart';
 import 'package:the_movie_database/utils/screenArguments.dart';
 import 'package:the_movie_database/ui/widgets/cardPoster.dart';
+import 'package:the_movie_database/ui/widgets/cardSeason.dart';
 
 class Detail extends StatefulWidget {
   final String mediaType;
@@ -71,18 +72,19 @@ class _DetailState extends State<Detail> {
                           margin: EdgeInsets.zero,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20.0),
-                              topRight: Radius.circular(20.0),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20.0),
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 20.0,
+                            padding: EdgeInsets.only(
+                              right: 20.0,
+                              bottom: 30.0,
+                              left: 20.0,
                             ),
                             child: _overview(result.overview),
                           ),
-                        )
+                        ),
                       ],
                     );
                   } else if (snapshot.hasError) {
@@ -91,25 +93,57 @@ class _DetailState extends State<Detail> {
                   return Center(child: CircularProgressIndicator());
                 },
               ),
+              StreamBuilder(
+                stream: bloc.details,
+                builder: (context, AsyncSnapshot<DetailModel> snapshot) {
+                  if (snapshot.hasData && snapshot.data.seasons != null) {
+                    return Column(
+                      children: <Widget>[
+                        Divider(
+                          color: Colors.black,
+                          height: 20,
+                        ),
+                        _setTitleSection(
+                          text: 'Seasons',
+                          size: _sizeSubTitle,
+                          colorTitle: Colors.white,
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                            top: 20.0,
+                            left: 5.0,
+                          ),
+                          height: _posterHeight,
+                          child: _buildSeasonList(
+                            containerWidth: _widthContainerPoster,
+                            snapshot: snapshot.data.seasons,
+                            colorTitle: Colors.white,
+                          ),
+                        ),
+                      ],
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text(snapshot.error.toString());
+                  }
+                  return Center(child: null);
+                },
+              ),
               Container(
                 width: double.infinity,
-                margin: EdgeInsets.zero,
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20.0,
+                margin: EdgeInsets.symmetric(
+                  vertical: 30.0,
+                ),
+                padding: EdgeInsets.all(
+                  20.0,
                 ),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20.0),
-                    bottomRight: Radius.circular(20.0),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20.0),
                   ),
                 ),
                 child: Column(
                   children: <Widget>[
-                    Divider(
-                      color: Colors.black,
-                      height: 60,
-                    ),
                     _setTitleSection(
                       text: 'Recommendations',
                       size: _sizeSubTitle,
@@ -125,8 +159,8 @@ class _DetailState extends State<Detail> {
                         builder: (context, AsyncSnapshot<ItemModel> snapshot) {
                           if (snapshot.hasData) {
                             return _buildItemList(
-                              _widthContainerPoster,
-                              snapshot,
+                              containerWidth: _widthContainerPoster,
+                              snapshot: snapshot.data.results,
                             );
                           } else if (snapshot.hasError) {
                             return Text(snapshot.error.toString());
@@ -154,8 +188,8 @@ class _DetailState extends State<Detail> {
                         builder: (context, AsyncSnapshot<ItemModel> snapshot) {
                           if (snapshot.hasData) {
                             return _buildItemList(
-                              _widthContainerPoster,
-                              snapshot,
+                              containerWidth: _widthContainerPoster,
+                              snapshot: snapshot.data.results,
                             );
                           } else if (snapshot.hasError) {
                             return Text(snapshot.error.toString());
@@ -189,10 +223,10 @@ class _DetailState extends State<Detail> {
         ),
       );
 
-
   Widget _setTitleSection({
     String text,
     double size,
+    Color colorTitle = Colors.black,
   }) =>
       ListTile(
         title: Row(
@@ -200,7 +234,7 @@ class _DetailState extends State<Detail> {
             Text(
               text,
               style: TextStyle(
-                color: Colors.black,
+                color: colorTitle,
                 fontSize: size,
                 fontWeight: FontWeight.w500,
               ),
@@ -210,10 +244,8 @@ class _DetailState extends State<Detail> {
       );
 
   Widget _buildItemList(
-    double containerWidth,
-    AsyncSnapshot<ItemModel> snapshot,
-  ) {
-    final results = snapshot.data.results;
+      {double containerWidth, snapshot, Color colorTitle = Colors.black}) {
+    final results = snapshot;
     return ListView.builder(
       itemExtent: containerWidth,
       scrollDirection: Axis.horizontal,
@@ -231,7 +263,34 @@ class _DetailState extends State<Detail> {
         child: CardPoster(
           results[index].title,
           results[index].posterPath,
-          colorTitle: Colors.black,
+          colorTitle: colorTitle,
+        ),
+      ),
+      itemCount: results.length,
+    );
+  }
+
+  Widget _buildSeasonList(
+      {double containerWidth, snapshot, Color colorTitle = Colors.black}) {
+    final results = snapshot;
+    return ListView.builder(
+      itemExtent: containerWidth,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (BuildContext context, int index) => GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            '/detail',
+            arguments: ScreenArguments(
+              this.mediaType,
+              results[index].id.toString(),
+            ),
+          );
+        },
+        child: CardPoster(
+          results[index].name,
+          results[index].posterPath,
+          colorTitle: colorTitle,
         ),
       ),
       itemCount: results.length,
