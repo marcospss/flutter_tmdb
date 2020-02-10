@@ -113,7 +113,7 @@ class _DetailState extends State<Detail> {
                             top: 20.0,
                             left: 5.0,
                           ),
-                          height: _posterHeight,
+                          height: 150.0,
                           child: _buildSeasonList(
                             containerWidth: _widthContainerPoster,
                             snapshot: snapshot.data.seasons,
@@ -274,23 +274,25 @@ class _DetailState extends State<Detail> {
       {double containerWidth, snapshot, Color colorTitle = Colors.black}) {
     final results = snapshot;
     return ListView.builder(
-      itemExtent: containerWidth,
+      itemExtent: 320.0,
       scrollDirection: Axis.horizontal,
       itemBuilder: (BuildContext context, int index) => GestureDetector(
         onTap: () {
-          Navigator.pushNamed(
-            context,
-            '/detail',
-            arguments: ScreenArguments(
-              this.mediaType,
-              results[index].id.toString(),
-            ),
-          );
+          // Navigator.pushNamed(
+          //   context,
+          //   '/detail',
+          //   arguments: ScreenArguments(
+          //     this.mediaType,
+          //     results[index].id.toString(),
+          //   ),
+          // );
+          print(results[index].name);
         },
-        child: CardPoster(
-          results[index].name,
-          results[index].posterPath,
-          colorTitle: colorTitle,
+        child: CardSeason(
+          name: results[index].name,
+          episodeCount: results[index].episodeCount,
+          posterPath: results[index].posterPath,
+          airDate: results[index].airDate,
         ),
       ),
       itemCount: results.length,

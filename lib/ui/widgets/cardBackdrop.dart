@@ -8,7 +8,8 @@ class CardBackdrop extends StatelessWidget {
   final String sizeImage;
   // https://pub.dev/documentation/intl/latest/intl/DateFormat-class.html
 
-  CardBackdrop(this.title, this.backdrop, this.releaseDate, { this.sizeImage = 'w300' });
+  CardBackdrop(this.title, this.backdrop, this.releaseDate,
+      {this.sizeImage = 'w300'});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +26,7 @@ class CardBackdrop extends StatelessWidget {
           image: DecorationImage(
             fit: BoxFit.fill,
             image: (backdrop != null)
-                ? NetworkImage(
-                    'https://image.tmdb.org/t/p/$sizeImage$backdrop')
+                ? NetworkImage('https://image.tmdb.org/t/p/$sizeImage$backdrop')
                 : AssetImage('images/no-image-available.jpg'),
           )),
       child: ClipRRect(
@@ -55,9 +55,10 @@ class CardBackdrop extends StatelessWidget {
                 subtitle: Text(
                   'Release Date: $formatReleaseDate',
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w400),
+                    color: Colors.white,
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ),
