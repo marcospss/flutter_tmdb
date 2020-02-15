@@ -19,6 +19,7 @@ class Router {
           builder: (_) => Detail(
             mediaType: args.mediaType,
             mediaId: args.mediaId,
+            mediaTitle: args.mediaTitle,
           ),
         );
       case '/search':

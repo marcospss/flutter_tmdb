@@ -25,7 +25,6 @@ class CardSeason extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(airDate);
     final parseReleaseDate =
         (airDate != null) ? DateFormat('yyyy-MM-dd').parse(airDate) : null;
     final formatReleaseDate = (parseReleaseDate != null)
@@ -35,10 +34,12 @@ class CardSeason extends StatelessWidget {
     final thumbnail = Container(
       margin: EdgeInsets.symmetric(vertical: 0.0),
       alignment: FractionalOffset.topLeft,
-      child: FadeInImage.memoryNetwork(
-        placeholder: kTransparentImage,
-        image: 'https://image.tmdb.org/t/p/$sizeImage$posterPath',
-      ),
+      child: (posterPath != null)
+          ? FadeInImage.memoryNetwork(
+              placeholder: kTransparentImage,
+              image: 'https://image.tmdb.org/t/p/$sizeImage$posterPath',
+            )
+          : null,
     );
 
     final infoSeasonContent = Container(
@@ -64,7 +65,7 @@ class CardSeason extends StatelessWidget {
               subtitle: Text(
                 (formatReleaseDate != null)
                     ? 'Air Date: $formatReleaseDate'
-                    : '',
+                    : 'Coming Soon On',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 12.0,

@@ -164,6 +164,7 @@ class _MovieState extends State<Movie> {
             arguments: ScreenArguments(
               'movie',
               results[index].id.toString(),
+              results[index].title
             ),
           );
         },

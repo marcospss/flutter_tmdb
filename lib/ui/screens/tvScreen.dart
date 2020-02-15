@@ -164,6 +164,7 @@ class _TvState extends State<Tv> {
             arguments: ScreenArguments(
               'tv',
               results[index].id.toString(),
+              results[index].title,
             ),
           );
         },

@@ -11,20 +11,22 @@ import 'package:the_movie_database/ui/widgets/cardSeason.dart';
 class Detail extends StatefulWidget {
   final String mediaType;
   final String mediaId;
+  final String mediaTitle;
 
-  Detail({this.mediaType, this.mediaId});
+  Detail({this.mediaType, this.mediaId, this.mediaTitle});
 
   @override
   _DetailState createState() =>
-      _DetailState(mediaType: this.mediaType, mediaId: this.mediaId);
+      _DetailState(mediaType: this.mediaType, mediaId: this.mediaId, mediaTitle: this.mediaTitle);
 }
 
 class _DetailState extends State<Detail> {
   final String mediaType;
   final String mediaId;
+  final String mediaTitle;
   final bloc = DetailsBloc();
 
-  _DetailState({this.mediaType, this.mediaId});
+  _DetailState({this.mediaType, this.mediaId, this.mediaTitle});
 
   @override
   void initState() {
@@ -46,10 +48,9 @@ class _DetailState extends State<Detail> {
     final _widthContainerPoster = 140.0;
     final _posterHeight = 240.0;
     final _sizeSubTitle = 20.0;
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('Terminator: Dark Fate Terminator Terminator'),
+        title: Text(this.mediaTitle),
         backgroundColor: Colors.transparent,
       ),
       body: SafeArea(
@@ -257,6 +258,7 @@ class _DetailState extends State<Detail> {
             arguments: ScreenArguments(
               this.mediaType,
               results[index].id.toString(),
+              results[index].title,
             ),
           );
         },
