@@ -5,6 +5,7 @@ import 'package:the_movie_database/blocs/detailBloc.dart';
 import 'package:the_movie_database/models/itemModel.dart';
 import 'package:the_movie_database/models/detailModel.dart';
 import 'package:the_movie_database/utils/screenArguments.dart';
+import 'package:the_movie_database/utils/screenSeasonsArguments.dart';
 import 'package:the_movie_database/ui/widgets/cardPoster.dart';
 import 'package:the_movie_database/ui/widgets/cardSeason.dart';
 
@@ -280,15 +281,15 @@ class _DetailState extends State<Detail> {
       scrollDirection: Axis.horizontal,
       itemBuilder: (BuildContext context, int index) => GestureDetector(
         onTap: () {
-          // Navigator.pushNamed(
-          //   context,
-          //   '/detail',
-          //   arguments: ScreenArguments(
-          //     this.mediaType,
-          //     results[index].id.toString(),
-          //   ),
-          // );
-          print(results[index].name);
+          Navigator.pushNamed(
+            context,
+            '/seasons',
+            arguments: ScreenSeasonsArguments(
+              results[index].name,
+              results[index].overview,
+              results[index].id,
+            )
+          );
         },
         child: CardSeason(
           name: results[index].name,

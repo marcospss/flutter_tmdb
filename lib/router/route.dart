@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:the_movie_database/ui/screens/homeScreen.dart';
 import 'package:the_movie_database/ui/screens/detailScreen.dart';
+import 'package:the_movie_database/ui/screens/seasonsScreen.dart';
 import 'package:the_movie_database/ui/screens/searchScreen.dart';
 import 'package:the_movie_database/ui/screens/discoverScreen.dart';
 import 'package:the_movie_database/ui/screens/favoriteScreen.dart';
 
 import 'package:the_movie_database/utils/screenArguments.dart';
+import 'package:the_movie_database/utils/screenSeasonsArguments.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -24,6 +26,15 @@ class Router {
         );
       case '/search':
         return MaterialPageRoute(builder: (_) => Search());
+      case '/seasons':
+        final ScreenSeasonsArguments argsSeasons = settings.arguments;
+        return MaterialPageRoute(
+          builder: (_) => SeasonScreen(
+            name: argsSeasons.seasonName,
+            overview: argsSeasons.seasonOverview,
+            id: argsSeasons.seasonId,
+          ),
+        );
       case '/discover':
         return MaterialPageRoute(builder: (_) => Discover());
       case '/favorites':
