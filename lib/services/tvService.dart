@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' show Client, Response;
 import 'package:the_movie_database/models/itemModel.dart';
+import 'package:the_movie_database/models/seasonModel.dart';
 import 'package:the_movie_database/settings/api.dart';
 
 class TvService {
@@ -63,12 +64,12 @@ class TvService {
   * Get TV Seasons
   * Get the TV season details by id.
   */
-  Future<ItemModel> fetchSeasonDetailsById({String mediaId, String seasonNumber}) async {
+  Future<SeasonModel> fetchSeasonDetailsById({String mediaId, String seasonNumber}) async {
     Response response;
     response = await _client.get('$_baseUrl/$mediaId/season/$seasonNumber?api_key=$_apiKey');
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON
-      return ItemModel.fromJson(json.decode(response.body));
+      return SeasonModel.fromJson(json.decode(response.body));
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load getSeasonDetailsById');

@@ -5,9 +5,10 @@ import 'package:the_movie_database/ui/widgets/cardList.dart';
 class SeasonScreen extends StatelessWidget {
   final String name;
   final String overview;
-  final int id;
+  final String id;
+  final String mediaId;
 
-  SeasonScreen({this.name, this.overview, this.id});
+  SeasonScreen({this.name, this.overview, this.id, this.mediaId});
 
   @override
   Widget build(BuildContext context) {

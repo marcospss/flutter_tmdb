@@ -17,8 +17,10 @@ class Detail extends StatefulWidget {
   Detail({this.mediaType, this.mediaId, this.mediaTitle});
 
   @override
-  _DetailState createState() =>
-      _DetailState(mediaType: this.mediaType, mediaId: this.mediaId, mediaTitle: this.mediaTitle);
+  _DetailState createState() => _DetailState(
+      mediaType: this.mediaType,
+      mediaId: this.mediaId,
+      mediaTitle: this.mediaTitle);
 }
 
 class _DetailState extends State<Detail> {
@@ -281,15 +283,13 @@ class _DetailState extends State<Detail> {
       scrollDirection: Axis.horizontal,
       itemBuilder: (BuildContext context, int index) => GestureDetector(
         onTap: () {
-          Navigator.pushNamed(
-            context,
-            '/seasons',
-            arguments: ScreenSeasonsArguments(
-              results[index].name,
-              results[index].overview,
-              results[index].id,
-            )
-          );
+          Navigator.pushNamed(context, '/seasons',
+              arguments: ScreenSeasonsArguments(
+                mediaId: this.mediaId,
+                seasonId: results[index].id,
+                seasonName: results[index].name,
+                seasonOverview: results[index].overview,
+              ));
         },
         child: CardSeason(
           name: results[index].name,

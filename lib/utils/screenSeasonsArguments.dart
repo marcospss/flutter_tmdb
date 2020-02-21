@@ -1,7 +1,13 @@
 class ScreenSeasonsArguments {
   final String seasonName;
   final String seasonOverview;
-  final int seasonId;
+  final String seasonId;
+  final String mediaId;
 
-  ScreenSeasonsArguments(this.seasonName, this.seasonOverview, this.seasonId);
+  ScreenSeasonsArguments({
+    this.seasonName,
+    this.seasonOverview,
+    this.seasonId,
+    this.mediaId,
+  });
 }

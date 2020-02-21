@@ -10,6 +10,8 @@ import 'package:the_movie_database/ui/screens/favoriteScreen.dart';
 import 'package:the_movie_database/utils/screenArguments.dart';
 import 'package:the_movie_database/utils/screenSeasonsArguments.dart';
 
+import 'package:the_movie_database/blocs/detailBlocProvider.dart';
+
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -29,11 +31,19 @@ class Router {
       case '/seasons':
         final ScreenSeasonsArguments argsSeasons = settings.arguments;
         return MaterialPageRoute(
-          builder: (_) => SeasonScreen(
-            name: argsSeasons.seasonName,
-            overview: argsSeasons.seasonOverview,
-            id: argsSeasons.seasonId,
-          ),
+          builder: (BuildContext context) {
+            final detailsBloc = DetailsBlocProvider.of(context);
+            detailsBloc.fetchSeasons(
+              mediaId: argsSeasons.mediaId,
+              seasonNumber: argsSeasons.seasonId,
+            );
+            return SeasonScreen(
+              name: argsSeasons.seasonName,
+              overview: argsSeasons.seasonOverview,
+              id: argsSeasons.seasonId,
+              mediaId: argsSeasons.mediaId,
+            );
+          },
         );
       case '/discover':
         return MaterialPageRoute(builder: (_) => Discover());
