@@ -48,7 +48,7 @@ class _Result {
     _video = result['video'];
     _voteAverage = result['vote_average'].toString();
     _title = (result['title'] != null) ? result['title'] : result['name'];
-    _popularity = result['popularity'];
+    _popularity = result['popularity'].toDouble();
     _posterPath = result['poster_path'];
     _originalLanguage = result['original_language'];
     _originalTitle = (result['original_title'] != null) ? result['original_title'] : result['original_name'];

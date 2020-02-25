@@ -9,34 +9,25 @@ import 'package:the_movie_database/utils/screenSeasonsArguments.dart';
 import 'package:the_movie_database/ui/widgets/cardPoster.dart';
 import 'package:the_movie_database/ui/widgets/cardSeason.dart';
 
-class Detail extends StatefulWidget {
+class DetailScreen extends StatefulWidget {
   final String mediaType;
   final String mediaId;
   final String mediaTitle;
 
-  Detail({this.mediaType, this.mediaId, this.mediaTitle});
+  DetailScreen({this.mediaType, this.mediaId, this.mediaTitle});
 
   @override
-  _DetailState createState() => _DetailState(
-      mediaType: this.mediaType,
-      mediaId: this.mediaId,
-      mediaTitle: this.mediaTitle);
+  _DetailScreenState createState() => _DetailScreenState();
 }
 
-class _DetailState extends State<Detail> {
-  final String mediaType;
-  final String mediaId;
-  final String mediaTitle;
+class _DetailScreenState extends State<DetailScreen> {
   final bloc = DetailsBloc();
-
-  _DetailState({this.mediaType, this.mediaId, this.mediaTitle});
-
   @override
   void initState() {
     super.initState();
-    bloc.fetchDetail(mediaType: this.mediaType, mediaId: this.mediaId);
-    bloc.fetchRecommendations(mediaType: this.mediaType, mediaId: this.mediaId);
-    bloc.fetchSimilar(mediaType: this.mediaType, mediaId: this.mediaId);
+    bloc.fetchDetail(mediaType: widget.mediaType, mediaId: widget.mediaId);
+    bloc.fetchRecommendations(mediaType: widget.mediaType, mediaId: widget.mediaId);
+    bloc.fetchSimilar(mediaType: widget.mediaType, mediaId: widget.mediaId);
   }
 
   // TODO: Corrigir o erro de carregamento quando voltar para página
@@ -53,7 +44,7 @@ class _DetailState extends State<Detail> {
     final _sizeSubTitle = 20.0;
     return Scaffold(
       appBar: AppBar(
-        title: Text(this.mediaTitle),
+        title: Text(widget.mediaTitle),
         backgroundColor: Colors.transparent,
       ),
       body: SafeArea(
@@ -259,7 +250,7 @@ class _DetailState extends State<Detail> {
             context,
             '/detail',
             arguments: ScreenArguments(
-              this.mediaType,
+              widget.mediaType,
               results[index].id.toString(),
               results[index].title,
             ),
@@ -285,8 +276,8 @@ class _DetailState extends State<Detail> {
         onTap: () {
           Navigator.pushNamed(context, '/seasons',
               arguments: ScreenSeasonsArguments(
-                mediaId: this.mediaId,
-                seasonId: results[index].id,
+                mediaId: widget.mediaId.toString(),
+                seasonId: results[index].id.toString(),
                 seasonName: results[index].name,
                 seasonOverview: results[index].overview,
               ));
