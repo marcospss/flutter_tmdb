@@ -277,9 +277,8 @@ class _DetailScreenState extends State<DetailScreen> {
           Navigator.pushNamed(context, '/seasons',
               arguments: ScreenSeasonsArguments(
                 mediaId: widget.mediaId.toString(),
-                seasonId: results[index].id.toString(),
+                seasonId: results[index].seasonNumber.toString(),
                 seasonName: results[index].name,
-                seasonOverview: results[index].overview,
               ));
         },
         child: CardSeason(

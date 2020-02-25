@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:the_movie_database/utils/DateHelper.dart';
 
 class CardBackdrop extends StatelessWidget {
   final String title;
@@ -13,8 +13,7 @@ class CardBackdrop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final parseReleaseDate = DateFormat('yyyy-MM-dd').parse(releaseDate);
-    final formatReleaseDate = DateFormat.yMMMMd().format(parseReleaseDate);
+    String formatReleaseDate = DateHelper().yearMonthDay(date: releaseDate);
     final size = MediaQuery.of(context).size.width;
     return Container(
       width: size,
