@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie_database/utils/DateHelper.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:intl/intl.dart';
 
 class CardSeason extends StatelessWidget {
   final String airDate;
@@ -25,11 +25,7 @@ class CardSeason extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final parseReleaseDate =
-        (airDate != null) ? DateFormat('yyyy-MM-dd').parse(airDate) : null;
-    final formatReleaseDate = (parseReleaseDate != null)
-        ? DateFormat.yMMMMd().format(parseReleaseDate)
-        : null;
+    String formatReleaseDate = DateHelper().yearMonthDay(date: airDate);
 
     final thumbnail = Container(
       margin: EdgeInsets.symmetric(vertical: 0.0),
@@ -110,4 +106,5 @@ class CardSeason extends StatelessWidget {
           ],
         ));
   }
+
 }
