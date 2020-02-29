@@ -250,9 +250,9 @@ class _DetailScreenState extends State<DetailScreen> {
             context,
             '/detail',
             arguments: ScreenArguments(
-              widget.mediaType,
-              results[index].id.toString(),
-              results[index].title,
+              mediaType: widget.mediaType,
+              mediaId: results[index].id.toString(),
+              mediaTitle: results[index].title,
             ),
           );
         },
@@ -279,6 +279,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 mediaId: widget.mediaId.toString(),
                 seasonId: results[index].seasonNumber.toString(),
                 seasonName: results[index].name,
+                posterPath: results[index].posterPath,
               ));
         },
         child: CardSeason(
@@ -286,6 +287,7 @@ class _DetailScreenState extends State<DetailScreen> {
           episodeCount: results[index].episodeCount,
           posterPath: results[index].posterPath,
           airDate: results[index].airDate,
+          overview: results[index].overview,
         ),
       ),
       itemCount: results.length,

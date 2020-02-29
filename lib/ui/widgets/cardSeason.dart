@@ -27,16 +27,18 @@ class CardSeason extends StatelessWidget {
   Widget build(BuildContext context) {
     String formatReleaseDate = DateHelper().yearMonthDay(date: airDate);
 
-    final thumbnail = Container(
-      margin: EdgeInsets.symmetric(vertical: 0.0),
-      alignment: FractionalOffset.topLeft,
-      child: (posterPath != null)
-          ? FadeInImage.memoryNetwork(
+    final thumbnail = ClipRRect(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+          child: Container(
+            child: (posterPath != null)
+            ? FadeInImage.memoryNetwork(
               placeholder: kTransparentImage,
               image: 'https://image.tmdb.org/t/p/$sizeImage$posterPath',
-            )
-          : null,
-    );
+            ) : null,
+          ),
+        );
 
     final infoSeasonContent = Container(
       margin: EdgeInsets.only(

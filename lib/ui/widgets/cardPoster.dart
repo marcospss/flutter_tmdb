@@ -20,10 +20,11 @@ class CardPoster extends StatelessWidget {
           ),
           child: Container(
             width: containerWidth,
-            child: FadeInImage.memoryNetwork(
+            child: (poster != null)
+            ? FadeInImage.memoryNetwork(
               placeholder: kTransparentImage,
               image: 'https://image.tmdb.org/t/p/$sizeImage$poster',
-            ),
+            ) : null,
           ),
         ),
         Container(

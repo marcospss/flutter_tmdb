@@ -15,9 +15,13 @@ class CardBackdrop extends StatelessWidget {
   Widget build(BuildContext context) {
     String formatReleaseDate = DateHelper().yearMonthDay(date: releaseDate);
     final size = MediaQuery.of(context).size.width;
+    final height = (MediaQuery.of(context).size.width / 2);
     return Container(
       width: size,
-      margin: EdgeInsets.only(right: 15.0),
+      height: height,
+      margin: EdgeInsets.all(
+        10.0,
+      ),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(
             Radius.circular(14.0),
