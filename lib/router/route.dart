@@ -34,6 +34,7 @@ class Router {
               name: argsSeasons.seasonName,
               seasonNumber: argsSeasons.seasonId,
               mediaId: argsSeasons.mediaId,
+              posterPath: argsSeasons.posterPath,
             );
           },
         );

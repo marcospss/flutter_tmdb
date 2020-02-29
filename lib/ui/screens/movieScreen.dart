@@ -162,9 +162,9 @@ class _MovieState extends State<Movie> {
             context,
             '/detail',
             arguments: ScreenArguments(
-              'movie',
-              results[index].id.toString(),
-              results[index].title
+              mediaType: 'movie',
+              mediaId: results[index].id.toString(),
+              mediaTitle: results[index].title,
             ),
           );
         },

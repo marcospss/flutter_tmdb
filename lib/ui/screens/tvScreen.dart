@@ -162,9 +162,9 @@ class _TvState extends State<Tv> {
             context,
             '/detail',
             arguments: ScreenArguments(
-              'tv',
-              results[index].id.toString(),
-              results[index].title,
+              mediaType: 'tv',
+              mediaId: results[index].id.toString(),
+              mediaTitle: results[index].title,
             ),
           );
         },
